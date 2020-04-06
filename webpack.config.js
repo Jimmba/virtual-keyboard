@@ -54,9 +54,9 @@ module.exports = (env, options) => {
         plugins: [
             //clean webpack plugin - очистка конечной директории перед упаковкой
             new CleanWebpackPlugin(),
-            new HtmlWebpackPlugin({
-                template: 'index.html'
-            }),
+            // new HtmlWebpackPlugin({
+            //     template: 'index.html'
+            // }),
             new MiniCssExtractPlugin({
                 filename: 'style.css',
             })

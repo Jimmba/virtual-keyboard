@@ -1,0 +1,214 @@
+$border: black 1px solid;
+$button_width: 40px;
+
+* {
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+body{
+    background-color: #000000;
+    margin: 0;
+}
+
+.wrapper{
+    max-width: 90vw;
+    height: 90vh;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    opacity: 0;
+    animation: showWrapper 1s linear forwards;
+}
+
+@keyframes showWrapper {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.content {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.description {
+    margin: 50px auto;
+    text-align: center;
+    font-size: 20px;
+    color: #606060;
+}
+
+form {
+    padding: 20px 0;
+    //display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom:30px;
+    width: 100%;
+    margin-left: -100vw;
+
+    animation: showTextarea 0.3s ease-out forwards 0.5s;
+
+    label{
+        padding-bottom:20px;
+        display: block;
+        justify-content: center;
+        font-size: 48px;
+        text-transform: uppercase;
+    }
+
+    textarea{
+        height: 200px;
+        width: 100%;
+        font-size: 20px;
+    }
+}
+
+
+@keyframes showTextarea {
+    from {
+        margin-left: -100vw;
+        opacity:0;
+    }
+
+    to {
+        margin-left: 0;
+        opacity: 1;
+    }
+
+}
+
+.keyboard{
+    margin:30px auto;
+    background-color: #c0c0c0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 800px;
+    //height: 500px;
+    border: $border;
+    margin-right: -100vw;
+    animation: showKeyboard 0.3s ease-out forwards 0.5s;
+
+    &_btn{
+        background-color: #909090;
+        color: black;
+        margin:5px;
+        padding:5px;
+        width: $button_width;
+        height: $button_width;
+        border: $border;
+        cursor: pointer;
+
+        &_simple{
+            text-align: right;
+        }
+
+        &:hover{
+            background-color: #b0b0b0;
+        }
+
+        &_Backspace{
+            width: $button_width*2;
+        }
+        &_Tab{
+            width:$button_width*1.5;
+        }
+        &_Del{
+            width:$button_width*1.5;
+        }
+        &_CapsLock{
+            width:$button_width*2;
+        }
+        &_Enter{
+            width:$button_width*2.5;
+        }
+        &_ShiftLeft{
+            width:$button_width*3;
+        }
+        &_ShiftRight{
+            width:$button_width*3;
+        }
+        &_ControlLeft{
+            width:$button_width*2;
+        }
+        &_MetaLeft{
+            width:$button_width;
+        }
+        &_AltLeft{
+            width:$button_width;
+        }
+        &_Space{
+            width:$button_width*8.5;
+        }
+        // &_Ta{
+        //     width:$button_width*2;
+        // }
+        
+        &_up_down{
+            display:flex;
+            flex-direction: column;    
+            justify-content: space-between;
+            
+            .keyboard_btn_ArrowUp{
+                height:$button_width/2.2;
+                margin-bottom:0;
+                padding:0;
+            }
+            .keyboard_btn_ArrowDown{
+                padding:0;
+                margin-top:0;
+                height:$button_width/2.2;
+                
+            }
+        }
+
+    }
+    .special{
+        background-color: #606060;
+        &:hover{
+            background-color: #808080;
+        }
+    }
+
+    &_btn:active, .special:active, .active_btn {
+        background-color: #000000;
+        color:#a0a0a0;
+    }
+    
+    &_hide {
+        animation: hideKeyboard 0.8s ease-in-out forwards;
+    }
+}
+
+
+
+@keyframes showKeyboard {
+    from {
+        margin-right: -100vw;
+        opacity:0;
+    }
+
+    to {
+        margin-right: 0;
+        opacity: 1;
+    }
+
+}
+
+@keyframes hideKeyboard {
+    from {
+        margin-right: 0;
+        opacity: 1;
+    }
+
+    to {
+        margin-right: -100vw;
+        opacity: 0;
+    }
+
+}
