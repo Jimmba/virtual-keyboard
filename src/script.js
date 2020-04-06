@@ -6,6 +6,48 @@ keyboardPage.render();
 const keyboard = new Keyboard();
 keyboard.switchKeyboard();
 
+function specialKeysStateOn(key) {
+  if (key === 'ShiftLeft' || key === 'ShiftRight' || key === 'ControlLeft' || key === 'AltLeft' || key === 'ControlRight' || key === 'AltRight' || key === 'MetaLeft') {
+    keyboard.specialKeys[key] = true;
+  }
+}
+
+function specialKeysStateOff(key) {
+  if (key === 'ShiftLeft' || key === 'ShiftRight' || key === 'ControlLeft' || key === 'AltLeft' || key === 'ControlRight' || key === 'AltRight' || key === 'MetaLeft') {
+    keyboard.specialKeys[key] = false;
+  }
+}
+
+function addActiveButton(key) {
+  if (document.getElementsByClassName(`keyboard_btn_${key}`)[0]) {
+    document.getElementsByClassName(`keyboard_btn_${key}`)[0].classList.add('active_btn');
+  }
+}
+
+function removeActiveButton(key) {
+  if (document.getElementsByClassName(`keyboard_btn_${key}`)[0]) {
+    document.getElementsByClassName(`keyboard_btn_${key}`)[0].classList.remove('active_btn');
+  }
+}
+
+function capsLockToggle(key) {
+  if (keyboard.specialKeys[key] === false) {
+    keyboard.specialKeys[key] = true;
+    addActiveButton(key);
+  } else {
+    keyboard.specialKeys[key] = false;
+    removeActiveButton(key);
+  }
+}
+
+function checkOfNeedChangeKeyboard(key) {
+  if (key === 'ShiftLeft' || key === 'ShiftRight') {
+    if (keyboard.specialKeys.AltLeft === true || keyboard.specialKeys.AltRight === true) {
+      keyboard.toChangeKeyboard = true;
+    }
+  }
+}
+
 function keyDownEvent(e) {
   const key = e.code;
   specialKeysStateOn(key);// if pressed special keys - write true in obj.
@@ -15,13 +57,7 @@ function keyDownEvent(e) {
     keyboard.print(key);
     e.preventDefault();
   } else {
-    if (keyboard.specialKeys[key] === false) {
-      keyboard.specialKeys[key] = true;
-      addActiveButton(key);
-    } else {
-      keyboard.specialKeys[key] = false;
-      removeActiveButton(key);
-    }
+    capsLockToggle(key);
   }
   checkOfNeedChangeKeyboard(key);
 }
@@ -36,30 +72,6 @@ function specialKeysStateSwitch(key) {
   }
 }
 
-function specialKeysStateOn(key) {
-  if (key === 'ShiftLeft' || key === 'ShiftRight' || key === 'ControlLeft' || key === 'AltLeft' || key === 'ControlRight' || key === 'AltRight' || key === 'MetaLeft') {
-    keyboard.specialKeys[key] = true;
-  }
-}
-
-function specialKeysStateOff(key) {
-  if (key === 'ShiftLeft' || key === 'ShiftRight' || key === 'ControlLeft' || key === 'AltLeft' || key === 'ControlRight' || key === 'AltRight' || key === 'MetaLeft') {
-    keyboard.specialKeys[key] = false;
-  }
-}
-
-function addActiveButton(key) {
-  if (document.getElementsByClassName('keyboard_btn_' + key)[0]) {
-    document.getElementsByClassName('keyboard_btn_' + key)[0].classList.add('active_btn');
-  }
-}
-
-function removeActiveButton(key) {
-  if (document.getElementsByClassName('keyboard_btn_' + key)[0]) {
-    document.getElementsByClassName('keyboard_btn_' + key)[0].classList.remove('active_btn');
-  }
-}
-
 function changeSpecialKeysAnimation(key) {
   if (keyboard.specialKeys[key] === true) {
     addActiveButton(key);
@@ -68,27 +80,11 @@ function changeSpecialKeysAnimation(key) {
   }
 }
 
-function checkOfNeedChangeKeyboard(key) {
-  if (key === 'ShiftLeft' || key === 'ShiftRight') {
-    if (keyboard.specialKeys.AltLeft === true || keyboard.specialKeys.AltRight === true) {
-      keyboard.toChangeKeyboard = true;
-    }
-  }
-}
-
-
 function mouseUpEvent() {
-  let key = (this.getAttribute('id'));
+  const key = (this.getAttribute('id'));
   specialKeysStateSwitch(key);
   changeSpecialKeysAnimation(key);
   checkOfNeedChangeKeyboard(key);
-  if (changeLangIfNeed()) {
-    // for (key in keyboard.specialKeys) {
-    //   if (keyboard.specialKeys[key] === true) {
-    //     addActiveButton(key);
-    //   }
-    // }
-  }
   keyboard.print(key);
 }
 
@@ -102,8 +98,9 @@ function addMouseListener() {
 function changeLangIfNeed() {
   if (keyboard.toChangeKeyboard === true) {
     keyboard.toChangeKeyboard = false;
-    for (const key in keyboard.specialKeys) {
-      if (key !== 'CapsLock') keyboard.specialKeys[key] = false;
+    const keys = Object.keys(keyboard.specialKeys);
+    for (let i = 0; i < keys.length; i += 1) {
+      if (keys[i] !== 'CapsLock') keyboard.specialKeys[keys[i]] = false;
     }
 
     keyboard.changeKeyboard();

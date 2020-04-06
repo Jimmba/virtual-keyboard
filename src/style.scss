@@ -95,7 +95,7 @@ form {
     animation: showKeyboard 0.3s ease-out forwards 0.5s;
 
     &_btn{
-        background-color: #909090;
+        background-color: #68758f;
         color: black;
         margin:5px;
         padding:5px;
@@ -103,6 +103,8 @@ form {
         height: $button_width;
         border: $border;
         cursor: pointer;
+        border-radius: 5px;
+        box-shadow: -2px 2px 5px #5093f7;
 
         &_simple{
             text-align: right;
@@ -169,7 +171,7 @@ form {
 
     }
     .special{
-        background-color: #606060;
+        background-color: #4e6592;
         &:hover{
             background-color: #808080;
         }

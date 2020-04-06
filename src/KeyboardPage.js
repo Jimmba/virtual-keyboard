@@ -1,8 +1,7 @@
 export default class KeyboardPage {
-  render() {
+  constructor() {
     const wrapper = document.createElement('div');
     wrapper.className = 'wrapper';
-    document.body.append(wrapper);
 
     const content = document.createElement('div');
     content.className = 'content';
@@ -31,9 +30,11 @@ export default class KeyboardPage {
     keyboard.className = 'keyboard';
     keyboard.setAttribute('id', 'keyboard');
     content.append(keyboard);
-
-    // this.keyboard.switchKeyboard();
-
     area.focus();
+    this.wrapper = wrapper;
+  }
+
+  render() {
+    document.body.append(this.wrapper);
   }
 }
