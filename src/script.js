@@ -80,21 +80,6 @@ function changeSpecialKeysAnimation(key) {
   }
 }
 
-function mouseUpEvent() {
-  const key = (this.getAttribute('id'));
-  specialKeysStateSwitch(key);
-  changeSpecialKeysAnimation(key);
-  checkOfNeedChangeKeyboard(key);
-  keyboard.print(key);
-}
-
-function addMouseListener() {
-  const arr = document.getElementsByClassName('keyboard_btn');
-  for (let i = 0; i < arr.length; i += 1) {
-    arr[i].addEventListener('mouseup', mouseUpEvent);
-  }
-}
-
 function changeLangIfNeed() {
   if (keyboard.toChangeKeyboard === true) {
     keyboard.toChangeKeyboard = false;
@@ -102,14 +87,31 @@ function changeLangIfNeed() {
     for (let i = 0; i < keys.length; i += 1) {
       if (keys[i] !== 'CapsLock') keyboard.specialKeys[keys[i]] = false;
     }
-
     keyboard.changeKeyboard();
-    setTimeout(() => {
-      addMouseListener();
-    }, 500);
     return true;
   }
   return false;
+}
+
+function mouseUpEvent(e) {
+  if (!e.target.classList.contains('keyboard')) {
+    let node;
+    if (e.target.classList.contains('keyboard_btn')) {
+      node = e.target;
+    } else {
+      node = e.target.parentNode;
+    }
+    const key = node.getAttribute('id');
+    specialKeysStateSwitch(key);
+    changeSpecialKeysAnimation(key);
+    checkOfNeedChangeKeyboard(key);
+    changeLangIfNeed();
+    keyboard.print(key);
+  }
+}
+
+function addMouseListener() {
+  document.getElementById('keyboard').addEventListener('mouseup', mouseUpEvent);
 }
 
 function keyUpEvent(e) {

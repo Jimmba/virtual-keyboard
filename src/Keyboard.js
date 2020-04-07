@@ -65,6 +65,7 @@ export default class Keyboard {
       kbrdbtn.setAttribute('id', this.buttonsArray[i][0]);
       const [key, type, value] = this.buttonsArray[i];
       if (type === 'special' && key !== undefined) {
+        if (this.buttonsArray[i][0] === 'CapsLock' && this.specialKeys.CapsLock) kbrdbtn.classList.add('active_btn');
         kbrdbtn.innerHTML = value;
       } else {
         const [smallSymbol, bigSymbol] = value;
@@ -115,10 +116,7 @@ export default class Keyboard {
     document.getElementById('keyboard').classList.add('keyboard_hide');
     setTimeout(() => {
       document.getElementById('keyboard').classList.remove('keyboard_hide');
-      const buttons = document.getElementById('keyboard').childNodes;
-      for (let i = buttons.length - 1; i > 0; i -= 1) {
-        buttons[i].remove();
-      }
+      document.getElementById('keyboard').innerHTML = '';
       this.switchKeyboard();
     }, 500);
   }
