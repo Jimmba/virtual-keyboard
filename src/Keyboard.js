@@ -236,11 +236,13 @@ export default class Keyboard {
     }
     if (key === 'Delete') {
       text = text.substring(0, start) + text.substring(end + shift, text.length);
+      this.text = text;
       this.textarea.innerHTML = text;
       document.getElementById('textarea').selectionEnd = start;
       document.getElementById('textarea').selectionStart = start;
     } else {
       text = text.substring(0, start - shift) + text.substring(end, text.length);
+      this.text = text;
       this.textarea.innerHTML = text;
       document.getElementById('textarea').selectionEnd = start - shift;
       document.getElementById('textarea').selectionStart = start - shift;

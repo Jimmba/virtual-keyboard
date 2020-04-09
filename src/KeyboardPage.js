@@ -9,7 +9,7 @@ export default class KeyboardPage {
 
     const about = document.createElement('div');
     about.classList = 'description';
-    about.innerHTML = 'Переключение раскладки клавиатуры ctrl+shift, клавиатура создавалась в Windows';
+    about.innerHTML = 'Переключение раскладки клавиатуры alt+shift, клавиатура создавалась в Windows';
     wrapper.appendChild(about);
 
     const form = document.createElement('form');
